@@ -1,11 +1,16 @@
 # Command interpreter
 @directions = { "n" => 0, "e" => 1, "s" => 2, "w" => 3, "north" => 0, "east" => 1, "south" => 2, "west" => 3 }
-@inventory = { "i" => "inventory(@player)", "drop" => "@player.drop(next_move_args)", "take" => "@player.take(next_move_args)" }
+@commands = { "i" => "inventory(@player)", "inventory" => "inventory(@player)", "drop" => "@player.drop(next_move_args)", "take" => "@player.take(next_move_args)", #inventory
+	"inspect" => "inspect(next_move_args)", # inspect items
+	"play message" => "play_message()", "select floor" => "select_floor()", # special events
+	"h" => "help()", "help" => "help()" } # help
+
+#@inventory = { "i" => "inventory(@player)", "drop" => "@player.drop(next_move_args)", "take" => "@player.take(next_move_args)" }
 @look_cur_room = { "look" => "look(@player.cur_room)", "l" => "look(@player.cur_room)" }
 @look_next_room = { "look" => "look(@next_room)", "l" => "look(@next_room)" }
-@event_commands = { "play message" => "play_message()", "select floor" => "select_floor()" }
-@inspect = { "inspect" => "inspect(next_move_args)", "i" => "inspect(next_move_args)" }
-@help = { "h" => "help()", "help" => "help()" }
+#@event_commands = { "play message" => "play_message()", "select floor" => "select_floor()" }
+#@inspect = { "inspect" => "inspect(next_move_args)", "i" => "inspect(next_move_args)" }
+#@help = { "h" => "help()", "help" => "help()" }
 
 # Item descriptions
 @item_descriptions = { "slip of paper" => "It has \"Floor 62, 4624\" written on it." }
@@ -54,18 +59,21 @@ def command_parser(next_move)
 		next_move_args = next_move.last(next_move.count - 1).join(" ") # Join all of the words after the first into a single variable
 	end
 
+	# General commands
+	if @commands.include? next_move[0]
+		eval @commands[next_move[0]]
+
+	elsif @commands.include? next_move.join(" ") # Support for multi-word commands like 'play message'
+		eval @commands[next_move.join(" ")]
+
 	# Movement
-	if @directions.include? next_move[0]
+	elsif @directions.include? next_move[0]
 		if !@player.cur_room.exits[@directions[next_move[0]]][1].nil? # If this exit exists for the room... (not nil)
 			# Then the player moves. Interpret the symbol for the next room found in the cur_room's exits hash as an instance variable (instance_variable_get)
 			enter(instance_variable_get(@player.cur_room.exits[@directions[next_move[0]]][1])) 
 		else
 			puts "You can't go that way!"
 		end
-
-	# Inventory
-	elsif @inventory.include? next_move[0]
-		eval @inventory[next_move[0]]
 
 	# Look in current room
 	elsif (@look_cur_room.include? next_move[0]) && (next_move[1].nil?) # If there's not a second element in the next_move array...
@@ -81,6 +89,7 @@ def command_parser(next_move)
 			puts "You can't look that way."
 		end
 
+=begin
 	# Inspect items
 	elsif @inspect.include? next_move[0]
 		eval @inspect[next_move[0]]
@@ -92,7 +101,7 @@ def command_parser(next_move)
  # Play message
 	elsif @help.include? next_move[0]
 		eval @help[next_move[0]]		
-
+=end
 	# Unknown	
 	else
 		puts "I don't know what that means."
@@ -143,7 +152,7 @@ end
 
 def cell_message()
 	if @cell_message_flag == 0
-		puts "Your answering machine is blinking it has 1 message waiting. ['play message']"
+		puts "Your answering machine is blinking - 1 message waiting. ['play message']"
 	end
 end
 
