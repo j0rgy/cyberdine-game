@@ -89,19 +89,6 @@ def command_parser(next_move)
 			puts "You can't look that way."
 		end
 
-=begin
-	# Inspect items
-	elsif @inspect.include? next_move[0]
-		eval @inspect[next_move[0]]
-
-	# Play message
-	elsif @event_commands.include? next_move.join(" ")
-		eval @event_commands[next_move.join(" ")]
-
- # Play message
-	elsif @help.include? next_move[0]
-		eval @help[next_move[0]]		
-=end
 	# Unknown	
 	else
 		puts "I don't know what that means."
@@ -423,7 +410,7 @@ end
 
 @apartment = Room.new(
 	"Your apartment. It smells like smoke. There's a large flat screen on the wall and an unmade bed in one corner. The only other piece of furniture is a solid oak coffee table.",
-	['Guns & Ammo magazine', 'pack of cigarettes', 'switchblade'],
+	['2600 magazine', 'pack of cigarettes', 'switchblade'],
 	[[nil],[nil],[nil],['door',:@alley]],
 	[],
 	[],
