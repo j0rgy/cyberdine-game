@@ -1,5 +1,6 @@
 # Cyberpunk-esque txt adventure game
 # Created by John Jorgensen <johnjorg@gmail.com>
+# v1 - 02-27-13
 
 # ToDos - Features
 # [x] Move inventory commands from hash in command_parser to player methods?
