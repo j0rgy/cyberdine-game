@@ -25,7 +25,7 @@ end
 
 def help()
 	puts "
-To move around, type a direction. Ex: 'west' moves you wast.
+To move around, type a direction. Ex: 'west' or 'w' moves you west.
 
 -----------------------------------------------------------------
 | Command       | Description                                   |
