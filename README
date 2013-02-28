@@ -1,0 +1,77 @@
+# Cyberpunk-esque txt adventure game
+# Created by John Jorgensen <johnjorg@gmail.com>
+
+# ToDos - Features
+# [x] Move inventory commands from hash in command_parser to player methods?
+# [x] Figure out how to 'look' in a direction
+# => [x] Create function that returns the exit for a given direction
+# =>     [x] How do I reference a local or instance variable within a class? Answer: class_instance.variable
+# [x] Create NPCs
+# => [x] Put NPC in a room. Each room needs an NPC array with current NPCs there
+# [x] Figure out 'custom events'
+# => How do I trigger a conversation if a hero is standing in the room with a player?
+# [x] Dialogue
+# => Specific events that only happen if a trigger is true.
+# [x] Create 'inspect' command to look at items and people
+
+# ToDos - Refactoring 
+
+# Questions
+# [x] Where should the 'directions' table live? 
+# -- Within rooms themselves? "w" => ['door',:@alley]
+
+# Inventory
+# => Array of items
+# => You can 'pick up' items to add them to your Inventory
+# => When you use an item it's depleted from your Inventory
+# => Each 'room' also has an array of items in it
+# => Have to add a 'quantity' for certain items
+# => If you 'look at' an item it will describe it
+# => Can you 'look at' an item in your inventory?
+
+# Commands
+# => look east (perform 'look(room)' in any direction)
+# => take item (add item to inventory, remove it from room's inventory)
+# => drop item (drop item from inventory, add it to room's inventory)
+# => give item to character (drop item from inventory, add it to character's inventory)
+
+# Custom room events
+# => Add another hash/array for custom room events
+# => Add a check for when they are triggered
+# => - Ex: If NPC has disk in his inventory, trigger event where he calls you over in the cyber cafe
+
+# Dialogue?
+# => Dialogue choices by number
+
+# Hacking
+# => Hack workplace computers, security systems
+# => Obtain a laptop
+
+# Money
+# => 
+
+# Fighting
+# => 
+
+# Story
+# => Add a newspaper in your apartment that describes the market crash, violence etc.
+# => Discover your phone is bugged? For some reason make your apartment not safe anymore, then lead player to a new safe spot (someone else's)
+
+# Map
+# The game starts on a city street. Different locations:
+# => Night club
+# => -- Bar
+# => -- Dance floor
+# => -- VIP room
+# => Alley
+# => -- Your apartment (accessed by fire escape)
+# => Cyber cafe
+# => City square (Times Square esque)
+# => Subway (you can take it to two different locations)
+# => -- Pier
+# => -- Financial district
+# =>  		- Stock exchange (blocked off by military vehicles)
+# =>      - Sky scraper
+# =>        - Elevator
+# =>        	- Office floor
+# =>        	- Roof
