@@ -1,17 +1,12 @@
 require 'test/unit'
+require_relative '../lib/cyberdine-game'
 
 class MyUnitTests < Test::Unit::TestCase
+  
+  include Runner
 
-	def setup
-		puts "setup!"
-	end
-
-	def teardown
-		puts "teardown!"
-	end
-
-	def test_basic
-		puts "I RAN!"
-	end
+  def test_command_parser()
+  	assert_equal(command_parser("n"), :move)
+  end
 
 end
